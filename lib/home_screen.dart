@@ -13,8 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    selectedFilter = filters[0];
     super.initState();
+    selectedFilter = filters[0];
   }
 
   @override
@@ -67,11 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: GestureDetector(
                       onTap: () {
-                        selectedFilter == filter;
+                        setState(() {
+                          selectedFilter = filter;
+                        });
                       },
                       child: Chip(
                         backgroundColor: selectedFilter == filter
-                            ? Theme.of(context).colorScheme.primary
+                            ? Colors.yellow
                             : const Color.fromRGBO(245, 247, 249, 1),
                         label: Text(filter),
                         side: const BorderSide(
