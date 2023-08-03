@@ -14,6 +14,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<String> filters = const ["All", "Addidas", "Nike", "Bata"];
   late String selectedFilter;
 
+  int currentPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -120,6 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          setState(() {
+            currentPage = value;
+          });
+        },
+        currentIndex: currentPage,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
