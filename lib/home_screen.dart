@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app_flutter/global_variable.dart';
+import 'package:shop_app_flutter/product_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,19 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Text(
                     "Shoes\nCollection",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search",
@@ -91,6 +90,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
+            ),
+            const SizedBox(height: 10),
+            ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return ProductCard(
+                  title: product["title"] as String,
+                  price: product["price"] as double,
+                  image: product["imageUrl"] as String,
+                  background: index.isEven
+                      ? const Color.fromRGBO(216, 240, 253, 1)
+                      : const Color.fromRGBO(245, 247, 249, 1),
+                );
+              },
             ),
           ],
         ),
