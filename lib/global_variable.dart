@@ -39,7 +39,7 @@ final cart = [
     "title": "Men\s Nike Shoes",
     "price": 44.52,
     "sizes": [10, 20, 40],
-    "imageUrl": "assets/images/shoe_2.png",
+    "imageUrl": "assets/images/shoe_4.png",
     "company": "Nike",
   },
 ];

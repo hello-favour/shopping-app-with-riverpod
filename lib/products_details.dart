@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter/cart_provider.dart';
 
 class ProductDetails extends StatefulWidget {
   final Map<String, Object> product;
@@ -12,7 +14,28 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  int selectedColor = 0;
+  int selectedSize = 0;
+  void onTap() {
+    if (selectedSize != 0) {
+      Provider.of<CartPrvovider>(context, listen: false).addProduct(
+        {
+          "id": widget.product["id"],
+          "title": widget.product["title"],
+          "price": widget.product["price"],
+          "sizes": widget.product["sizes"],
+          "imageUrl": widget.product["imageUrl"],
+          "company": selectedSize,
+        },
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("you need to select size"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,14 +85,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              selectedColor = size;
+                              selectedSize = size;
                             });
                           },
                           child: Chip(
                             label: Text(
                               size.toString(),
                             ),
-                            backgroundColor: selectedColor == size
+                            backgroundColor: selectedSize == size
                                 ? Theme.of(context).colorScheme.primary
                                 : null,
                           ),
@@ -82,7 +105,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      onTap();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       minimumSize: const Size(
